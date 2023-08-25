@@ -9,6 +9,8 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
+    
+    var locationManager: CLLocationManager?
 
     lazy var mapView: MKMapView = {
         let map = MKMapView()
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // view.backgroundColor = .green
+        setupLocation()
         setupUI()
         setupConstraints()
     }
@@ -57,6 +59,28 @@ class ViewController: UIViewController {
         searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
         
     }
+    
+    func setupLocation(){
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestLocation()
+    }
+    
+}
+
+extension ViewController: CLLocationManagerDelegate {
+    
+    // when the location updates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+    }
+    
+    // when there's an error
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
     
 }
 
