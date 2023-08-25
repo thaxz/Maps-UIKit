@@ -67,9 +67,30 @@ class ViewController: UIViewController {
         locationManager?.requestLocation()
     }
     
+    private func checkLocationAuthorization(){
+        guard let locationManager = locationManager,
+              let location = locationManager.location else {return}
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            createRegion(center: location.coordinate)
+        case .denied:
+            print("")
+        case .notDetermined, .restricted:
+            print("")
+        default:
+            print("")
+        }
+        
+    }
+    
 }
 
 extension ViewController: CLLocationManagerDelegate {
+    
+    func createRegion(center: CLLocationCoordinate2D){
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: 750, longitudinalMeters: 750)
+        mapView.setRegion(region, animated: true)
+    }
     
     // when the location updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -79,6 +100,11 @@ extension ViewController: CLLocationManagerDelegate {
     // when there's an error
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    // if the authorization has changed
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
     }
     
     
