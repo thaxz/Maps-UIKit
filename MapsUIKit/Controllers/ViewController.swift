@@ -68,6 +68,20 @@ class ViewController: UIViewController {
         locationManager?.requestLocation()
     }
     
+    func presentPlacesSheet(places: [PlaceAnnotation]){
+        
+        guard let locationManager = locationManager,
+              let userLocation = locationManager.location else {return}
+        
+        let placesTableViewController = PlacesTableViewController(userLocation: userLocation, places: places)
+        placesTableViewController.modalPresentationStyle = .pageSheet
+        if let sheet = placesTableViewController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            present(placesTableViewController, animated: true)
+        }
+    }
+    
     private func checkLocationAuthorization(){
         guard let locationManager = locationManager,
               let location = locationManager.location else {return}
@@ -123,6 +137,7 @@ extension ViewController: CLLocationManagerDelegate {
             places.forEach { places in
                 self?.mapView.addAnnotation(places)
             }
+            self?.presentPlacesSheet(places: places)
         }
     }
     
