@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         txtfield.backgroundColor = .white
         txtfield.placeholder = "Search"
         txtfield.textColor = .black
+        txtfield.delegate = self
         // padding
         txtfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         txtfield.leftViewMode = .always
@@ -74,16 +75,35 @@ class ViewController: UIViewController {
         case .authorizedWhenInUse, .authorizedAlways:
             createRegion(center: location.coordinate)
         case .denied:
-            print("")
+            print("Location denied")
         case .notDetermined, .restricted:
-            print("")
+            print("Location restricted")
         default:
-            print("")
+            print("error")
         }
         
     }
     
 }
+
+// MARK: Textfield delegate
+
+extension ViewController: UITextFieldDelegate {
+    
+    // When the return key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // ensuring there's a text
+        let text = textField.text ?? ""
+        if !text.isEmpty {
+            textField.resignFirstResponder()
+            // search nearby places
+        }
+       return true
+    }
+    
+}
+
+// MARK: Map delegate
 
 extension ViewController: CLLocationManagerDelegate {
     
