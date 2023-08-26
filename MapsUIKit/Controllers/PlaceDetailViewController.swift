@@ -22,6 +22,15 @@ class PlaceDetailViewController: UIViewController {
         return label
     }()
     
+    lazy var addressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.alpha = 0.4
+        return label
+    }()
+    
     init(place: PlaceAnnotation) {
         self.place = place
         super.init(nibName: nil, bundle: nil)
@@ -34,7 +43,6 @@ class PlaceDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
     }
     
     private func setupUI(){
@@ -48,7 +56,10 @@ class PlaceDetailViewController: UIViewController {
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         
         nameLabel.text = place.name
+        addressLabel.text = place.address
+        
         stackView.addArrangedSubview(nameLabel)
+        stackView.addArrangedSubview(addressLabel)
         
         nameLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 20).isActive = true
         view.addSubview(stackView)
