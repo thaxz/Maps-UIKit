@@ -107,6 +107,20 @@ extension ViewController: UITextFieldDelegate {
 
 extension ViewController: CLLocationManagerDelegate {
     
+    func findNearbyPlaces(by query: String){
+        // Cleaning any other annotation
+        mapView.removeAnnotations(mapView.annotations)
+        // Making a request
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = query
+        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        search.start { response, error in
+            guard let response = response, error == nil else {return}
+            print(response.mapItems)
+        }
+    }
+    
     func createRegion(center: CLLocationCoordinate2D){
         let region = MKCoordinateRegion(center: center, latitudinalMeters: 750, longitudinalMeters: 750)
         mapView.setRegion(region, animated: true)
