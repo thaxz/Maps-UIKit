@@ -59,6 +59,13 @@ class PlaceDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+    }
+    
+    @objc func directionButtonTapped(_ sender: UIButton){
+        let coordinate = place.location.coordinate
+        guard let url = URL(string: "http://maps.apple.com/?daddr=\(coordinate.latitude),\(coordinate.longitude)") else {return}
+        UIApplication.shared.open(url)
     }
     
     private func setupUI(){
@@ -84,6 +91,8 @@ class PlaceDetailViewController: UIViewController {
         
         contactStackView.addArrangedSubview(directionButton)
         contactStackView.addArrangedSubview(callButton)
+        
+        directionButton.addTarget(self, action: #selector(directionButtonTapped), for: .touchUpInside)
         
         stackView.addArrangedSubview(contactStackView)
         nameLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 20).isActive = true
