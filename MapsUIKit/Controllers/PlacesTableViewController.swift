@@ -53,6 +53,14 @@ class PlacesTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // getting the selected place
+        let place = places[indexPath.row]
+        let placeDetailViewController = PlaceDetailViewController(place: place)
+        present(placeDetailViewController, animated: true)
+        
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
