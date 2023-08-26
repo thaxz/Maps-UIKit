@@ -26,13 +26,22 @@ class PlacesTableViewController: UITableViewController {
         places.count
     }
     
+    private func calculateDistance(from: CLLocation, to: CLLocation) -> CLLocationDistance {
+        from.distance(from: to)
+    }
+    
+    private func formatDistance(_ distance: CLLocationDistance) -> String{
+        let meters = Measurement(value: distance, unit: UnitLength.meters)
+        return meters.formatted()
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath)
         let place = places[indexPath.row]
         // cell configuration
         var content = cell.defaultContentConfiguration()
         content.text = place.name
-        content.secondaryText = "Coming"
+        content.secondaryText = formatDistance(calculateDistance(from: userLocation, to: place.location))
         cell.contentConfiguration = content
         return cell
     }
