@@ -20,6 +20,12 @@ class PlacesTableViewController: UITableViewController {
         super.init(nibName: nil, bundle: nil)
         // registering cell
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PlaceCell")
+        self.places.swapAt(indexAtSelectedRow ?? 0, 0)
+    }
+    
+    private var indexAtSelectedRow: Int? {
+        // the first one that is true
+        self.places.firstIndex(where: {$0.isSelected == true})
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,6 +49,7 @@ class PlacesTableViewController: UITableViewController {
         content.text = place.name
         content.secondaryText = formatDistance(calculateDistance(from: userLocation, to: place.location))
         cell.contentConfiguration = content
+        cell.backgroundColor = place.isSelected ? UIColor.lightGray.withAlphaComponent(0.5) : .clear
         return cell
     }
     

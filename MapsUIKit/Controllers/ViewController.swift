@@ -11,10 +11,12 @@ import MapKit
 class ViewController: UIViewController {
     
     var locationManager: CLLocationManager?
+    private var places: [PlaceAnnotation] = []
 
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.showsUserLocation = true
+        map.delegate = self
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
@@ -69,7 +71,6 @@ class ViewController: UIViewController {
     }
     
     func presentPlacesSheet(places: [PlaceAnnotation]){
-        
         guard let locationManager = locationManager,
               let userLocation = locationManager.location else {return}
         
@@ -118,7 +119,20 @@ extension ViewController: UITextFieldDelegate {
     
 }
 
-// MARK: Map delegate
+// MARK: Map delegates
+
+extension ViewController: MKMapViewDelegate {
+    
+    // when a annotation is selected
+    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        guard let selectionAnnotation = annotation as? PlaceAnnotation else {return}
+        // the first one that the id matches
+        let placeAnnotation = self.places.first(where: {$0.id == selectionAnnotation.id})
+        placeAnnotation?.isSelected = true
+        presentPlacesSheet(places: self.places)
+    }
+    
+}
 
 extension ViewController: CLLocationManagerDelegate {
     
@@ -133,11 +147,13 @@ extension ViewController: CLLocationManagerDelegate {
         search.start { [weak self] response, error in
             guard let response = response, error == nil else {return}
             // transforming all the responses in PlaceAnnotation
-            let places = response.mapItems.map(PlaceAnnotation.init)
-            places.forEach { places in
+            self?.places = response.mapItems.map(PlaceAnnotation.init)
+            self?.places.forEach { places in
                 self?.mapView.addAnnotation(places)
             }
-            self?.presentPlacesSheet(places: places)
+            if let places = self?.places {
+                self?.presentPlacesSheet(places: places)
+            }
         }
     }
     
