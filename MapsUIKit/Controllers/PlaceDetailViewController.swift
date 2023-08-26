@@ -68,6 +68,11 @@ class PlaceDetailViewController: UIViewController {
         UIApplication.shared.open(url)
     }
     
+    @objc func callButtonTapped(_ sender: UIButton){
+        guard let url = URL(string: "tell://\(place.phone.formatPhoneForCall)") else {return}
+        UIApplication.shared.open(url)
+    }
+    
     private func setupUI(){
         
         let stackView = UIStackView()
@@ -93,6 +98,7 @@ class PlaceDetailViewController: UIViewController {
         contactStackView.addArrangedSubview(callButton)
         
         directionButton.addTarget(self, action: #selector(directionButtonTapped), for: .touchUpInside)
+        callButton.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
         
         stackView.addArrangedSubview(contactStackView)
         nameLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 20).isActive = true
