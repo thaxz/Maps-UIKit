@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E95BD3A32A9A801600459E2D /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95BD3A22A9A801600459E2D /* PlaceAnnotation.swift */; };
 		E97CFA322A9816DF00135CC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97CFA312A9816DF00135CC3 /* AppDelegate.swift */; };
 		E97CFA342A9816DF00135CC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97CFA332A9816DF00135CC3 /* SceneDelegate.swift */; };
 		E97CFA362A9816DF00135CC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97CFA352A9816DF00135CC3 /* ViewController.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E95BD3A22A9A801600459E2D /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
 		E97CFA2E2A9816DF00135CC3 /* MapsUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97CFA312A9816DF00135CC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E97CFA332A9816DF00135CC3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E95BD3A12A9A800B00459E2D /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				E95BD3A22A9A801600459E2D /* PlaceAnnotation.swift */,
+			);
+			path = Annotations;
+			sourceTree = "<group>";
+		};
 		E97CFA252A9816DF00135CC3 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +64,7 @@
 		E97CFA302A9816DF00135CC3 /* MapsUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				E95BD3A12A9A800B00459E2D /* Annotations */,
 				E97CFA312A9816DF00135CC3 /* AppDelegate.swift */,
 				E97CFA332A9816DF00135CC3 /* SceneDelegate.swift */,
 				E97CFA352A9816DF00135CC3 /* ViewController.swift */,
@@ -134,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95BD3A32A9A801600459E2D /* PlaceAnnotation.swift in Sources */,
 				E97CFA362A9816DF00135CC3 /* ViewController.swift in Sources */,
 				E97CFA322A9816DF00135CC3 /* AppDelegate.swift in Sources */,
 				E97CFA342A9816DF00135CC3 /* SceneDelegate.swift in Sources */,

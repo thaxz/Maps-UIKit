@@ -97,6 +97,7 @@ extension ViewController: UITextFieldDelegate {
         if !text.isEmpty {
             textField.resignFirstResponder()
             // search nearby places
+            findNearbyPlaces(by: text)
         }
        return true
     }
