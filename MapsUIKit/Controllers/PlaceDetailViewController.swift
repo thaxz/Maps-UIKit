@@ -31,6 +31,22 @@ class PlaceDetailViewController: UIViewController {
         return label
     }()
     
+    lazy var directionButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Directions", for: .normal)
+        return button
+    }()
+    
+    lazy var callButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Call", for: .normal)
+        return button
+    }()
+    
     init(place: PlaceAnnotation) {
         self.place = place
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +77,15 @@ class PlaceDetailViewController: UIViewController {
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(addressLabel)
         
+        let contactStackView = UIStackView()
+        contactStackView.translatesAutoresizingMaskIntoConstraints = false
+        contactStackView.axis = .horizontal
+        contactStackView.spacing = UIStackView.spacingUseSystem
+        
+        contactStackView.addArrangedSubview(directionButton)
+        contactStackView.addArrangedSubview(callButton)
+        
+        stackView.addArrangedSubview(contactStackView)
         nameLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 20).isActive = true
         view.addSubview(stackView)
     }
