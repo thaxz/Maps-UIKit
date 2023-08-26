@@ -123,8 +123,17 @@ extension ViewController: UITextFieldDelegate {
 
 extension ViewController: MKMapViewDelegate {
     
+    private func clearAllSelections(){
+        self.places = self.places.map({ place in
+            place.isSelected = false
+            return place
+        })
+    }
+    
     // when a annotation is selected
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        // clear all other selections
+        clearAllSelections()
         guard let selectionAnnotation = annotation as? PlaceAnnotation else {return}
         // the first one that the id matches
         let placeAnnotation = self.places.first(where: {$0.id == selectionAnnotation.id})
